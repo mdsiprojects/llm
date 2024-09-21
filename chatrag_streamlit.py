@@ -45,7 +45,7 @@ if "messages" not in st.session_state:
 if 'grounded_prompt' not in st.session_state:
     st.session_state.grounded_prompt = GROUNDED_PROMPT
 
-def print_messages(messages=[]): 
+def print_messages(messages=[]):
     for index, message in enumerate(messages):
         print(f"{index}: {message['role']} - {message['content']}")
 
@@ -57,18 +57,25 @@ def stream_chat(messages, model_name='gpt-4o-global'):
         messages=[
             {"role": m["role"], "content": m["content"]}
             for m in messages
-        ], 
+        ],
         stream=True
     )
-    
+
     return stream
 
 # %%
 
-st.title("RAG Chatbot")
+# st.title("RAG Chatbot")
+
+# Set the page configuration to collapse the sidebar by default
+st.set_page_config(
+    page_title="RAG Chatbot",
+    # layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
 # Add a sidebar with a text box for the system prompt
-system_prompt = st.sidebar.text_area("System Prompt", value=st.session_state.grounded_prompt)
+system_prompt = st.sidebar.text_area("System Prompt", value=st.session_state.grounded_prompt, height=650)
 if system_prompt != st.session_state.grounded_prompt:
     st.session_state.grounded_prompt = system_prompt
 
