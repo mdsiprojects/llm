@@ -8,8 +8,29 @@ Basic excercises: chat completion. embeddings and similarity, search methods
 chat UI with gradio 
 putting it all together 
 
+install streamlit and demo app: https://docs.streamlit.io/get-started/installation/command-line 
+streamlit chat app tutorial: https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps 
 
 
+to debug `streamlit` apps, add the follow to your `launch.json` file: 
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: streamlit Module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": ["run", "${file}"],
+        }
+    ]
+}
+```
 
 https://github.com/Azure-Samples/openai/blob/main/Basic_Samples/README.md
 
