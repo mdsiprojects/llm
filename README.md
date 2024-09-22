@@ -1,15 +1,101 @@
 # Tuesday 24/09/3034
 
-Anatomy of RAG 
-Search 
-optional: search data ingestion using a notebook 
-Basic excercises: chat completion. embeddings and similarity, search methods 
+## Intro
 
-chat UI with gradio 
-putting it all together 
+In this code repo and lecture slides we will cover: 
 
-install streamlit and demo app: https://docs.streamlit.io/get-started/installation/command-line 
-streamlit chat app tutorial: https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps 
+- Azure OpenAI API Access
+- Azure AI Search
+- Anatomy of RAG 
+- optional: search data ingestion using a notebook 
+- Code Samples: chat completion. embeddings and similarity, search methods 
+- chat UI with gradio and streamlit
+- putting it all together Chat UI for RAG with gradio and streamlit 
+
+
+## Installing openao python SDK 
+
+You can use the `venv` module (or conda) to create a python env
+
+Create a Virtual Environment with venv:  `python -m venv .venv` 
+
+Activate the Environment: 
+
+- On Windows: `.venv\Scripts\activate`
+- On macOS/Linux: `source .venv/bin/activate`
+
+install openai using pip: `pip install openai`
+
+Alternatively, create a requirements.txt file with all dependencies: `pip install –r requirements.txt`
+
+Sample `requirements.txt` file: 
+
+```
+gradio
+streamlit
+openai
+python-dotenv>=1.0.0
+azure-search-documents==11.6.0b1
+azure-identity
+```
+
+## How to use AzureOpenAI 
+
+Import Azure OpenAI from the openai library:
+```python
+from openai import AzureOpenAI
+```
+
+To create vector embeddings import the embeddings module: 
+
+```python 
+from openai import embeddings
+```
+
+Create and Azure OpenAI client: 
+
+```python 
+client = AzureOpenAI(
+    azure_endpoint=api_endpoint,
+    api_key=api_key,
+    api_version=api_version,
+)
+```
+
+### Chat Completions
+You will use the chat completions API to interact with the openai models:
+https://platform.openai.com/docs/api-reference/chat/create?lang=python 
+
+```python
+response = client.chat.completions.create(
+    model=deployment_name_chat,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Who won the world series in 2020?"}
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+### Vector Embeddings
+Using the client embeddings function to create vector embeddings: 
+
+
+```python
+embedding = client.embeddings.create(
+    model=deployment_name_embeddings,
+    input="Hello, world!"
+)
+
+for e in embedding:
+    print(e)
+```
+
+## Using Streamlit with VS Code
+
+Install streamlit and demo app: https://docs.streamlit.io/get-started/installation/command-line 
+Streamlit chat app tutorial: https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps 
 
 
 to debug `streamlit` apps, add the follow to your `launch.json` file: 
@@ -32,22 +118,3 @@ to debug `streamlit` apps, add the follow to your `launch.json` file:
 }
 ```
 
-https://github.com/Azure-Samples/openai/blob/main/Basic_Samples/README.md
-
-
-
-https://farzzy.hashnode.dev/exploring-llamaindex-workflows-a-step-by-step-guide-to-building-a-rag-system-with-azure-ai-search-and-azure-openai?source=more_articles_bottom_blogs 
-
-
-
-https://github.com/openai/openai-cookbook/tree/main/examples
-
-https://www.gradio.app/guides/gradio-and-llm-agents or https://docs.streamlit.io/develop/tutorials/llms/llm-quickstart
-
-https://huggingface.co/blog/inference-endpoints-llm
-
-https://learn.microsoft.com/en-us/azure/ai-studio/concepts/evaluation-metrics-built-in
-
-[​pptx icon L22_RAG.pptx](https://studentutsedu-my.sharepoint.com/:p:/g/personal/antonette_shibani_uts_edu_au/ERTcd3BRZytBvVRwUUVo3ZUBeIlfAzsvPqZPumIVng_BMA?e=ucMG1B&xsdata=MDV8MDJ8bXV0YXouYWJ1Z2hhemFsZWhAbWljcm9zb2Z0LmNvbXxiYjUzZWU5OTMxODU0Y2ZmYjNlMzA4ZGNjYjA0ZDYxY3w3MmY5ODhiZjg2ZjE0MWFmOTFhYjJkN2NkMDExZGI0N3wxfDB8NjM4NjA4NDY4ODkzOTk4Njg0fFVua25vd258VFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wPXwwfHx8&sdata=R1VMci94RE00VS8xd05WSmJ4VldsRzN2WVVtYS9hZjZ2NUhYd0tqcjg2Zz0%3d)
-
-[​pptx icon 02.neural-language-modeling.pptx](https://studentutsedu-my.sharepoint.com/:p:/g/personal/antonette_shibani_uts_edu_au/ETCmw9pRL9tEkL6cV-drpWUBVJ4Q0uHz0iQMqlb5DZirCA?e=VAqfU3&xsdata=MDV8MDJ8bXV0YXouYWJ1Z2hhemFsZWhAbWljcm9zb2Z0LmNvbXxiYjUzZWU5OTMxODU0Y2ZmYjNlMzA4ZGNjYjA0ZDYxY3w3MmY5ODhiZjg2ZjE0MWFmOTFhYjJkN2NkMDExZGI0N3wxfDB8NjM4NjA4NDY4ODk0MDA3MzU3fFVua25vd258VFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wPXwwfHx8&sdata=MEYyajdDanR1VmhNRVlTWUE2bitEelN0Q3VJV2tvNlRVMGg0RWducW1DMD0%3d)
