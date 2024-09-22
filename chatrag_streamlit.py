@@ -65,8 +65,6 @@ def stream_chat(messages, model_name='gpt-4o-global'):
 
 # %%
 
-# st.title("RAG Chatbot")
-
 # Set the page configuration to collapse the sidebar by default
 st.set_page_config(
     page_title="RAG Chatbot",

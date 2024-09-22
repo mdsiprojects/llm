@@ -48,6 +48,7 @@ def print_messages(messages=[]):
 # %%
 def stream_chat(messages, model_name='gpt-4o-global'):
 
+    print("##############################")
     print_messages(messages)    
     stream = client.chat.completions.create(
         model=model_name,
