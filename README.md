@@ -1,6 +1,6 @@
 # Tuesday 24/09/3034
 
-## Intro
+## 📘 Intro
 
 In this code repo and lecture slides we will cover: 
 
@@ -12,8 +12,9 @@ In this code repo and lecture slides we will cover:
 - chat UI with gradio and streamlit
 - putting it all together Chat UI for RAG with gradio and streamlit 
 
+Lecture material: <img src="https://img.icons8.com/color/48/000000/pdf.png" alt="PDF icon" width="24" height="24"/> [Building LLM Apps 2024.09.22](<UTSMDSI-Azure OpenAI Service - LLM - 2024.09.22.pdf>)
 
-## Installing openao python SDK 
+## 🐍 Installing openao python SDK 
 
 You can use the `venv` module (or conda) to create a python env
 
@@ -39,7 +40,7 @@ azure-search-documents==11.6.0b1
 azure-identity
 ```
 
-## How to use AzureOpenAI 
+## 🤖 How to use AzureOpenAI 
 
 Import Azure OpenAI from the openai library:
 ```python
@@ -62,7 +63,7 @@ client = AzureOpenAI(
 )
 ```
 
-### Chat Completions
+### 💬 Chat Completions
 You will use the chat completions API to interact with the openai models:
 https://platform.openai.com/docs/api-reference/chat/create?lang=python 
 
@@ -78,27 +79,25 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-### Vector Embeddings
+### 📊 Vector Embeddings
 Using the client embeddings function to create vector embeddings: 
-
 
 ```python
 embedding = client.embeddings.create(
-    model=deployment_name_embeddings,
-    input="Hello, world!"
+    model=deployment_name_embeddings,
+    input="Hello, world!"
 )
 
 for e in embedding:
-    print(e)
+    print(e)
 ```
 
-## Using Streamlit with VS Code
+## 🖥️ Using Streamlit with VS Code
 
 Install streamlit and demo app: https://docs.streamlit.io/get-started/installation/command-line 
 Streamlit chat app tutorial: https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps 
 
-
-to debug `streamlit` apps, add the follow to your `launch.json` file: 
+To debug `streamlit` apps, add the follow to your `launch.json` file: 
 
 ```json
 {
